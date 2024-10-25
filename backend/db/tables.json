@@ -14,6 +14,21 @@
       "id": 3,
       "name": "Tata",
       "email": "tata@orange.fr"
+    },
+    {
+      "id": 4,
+      "name": "Laye",
+      "email": "test@gmail.fr"
+    },
+    {
+      "id": 5,
+      "name": "testeur",
+      "email": "testeur@test.fr"
+    },
+    {
+      "id": 6,
+      "name": "testeur_withou_transaction",
+      "email": "notrasanction@test.fr"
     }
   ],
   "transactions": [
@@ -214,6 +229,126 @@
       "user_id": 3,
       "amount": 20,
       "date": "2020-02-10",
+      "type": "scheduled_withdrawal",
+      "state": "scheduled"
+    },
+    {
+      "id": 30,
+      "user_id": 4,
+      "amount": 20,
+      "date": "2020-01-01",
+      "type": "deposit",
+      "state": "completed"
+    },
+    {
+      "id": 31,
+      "user_id": 4,
+      "amount": 10,
+      "date": "2020-01-02",
+      "type": "deposit",
+      "state": "failed"
+    },
+    {
+      "id": 32,
+      "user_id": 4,
+      "amount": 30,
+      "date": "2020-01-05",
+      "type": "deposit",
+      "state": "completed"
+    },
+    {
+      "id": 33,
+      "user_id": 4,
+      "amount": 20,
+      "date": "2020-01-15",
+      "type": "scheduled_withdrawal",
+      "state": "completed"
+    },
+    {
+      "id": 34,
+      "user_id": 4,
+      "amount": 15,
+      "date": "2020-01-16",
+      "type": "deposit",
+      "state": "completed"
+    },
+    {
+      "id": 35,
+      "user_id": 4,
+      "amount": 10,
+      "date": "2020-02-17",
+      "type": "deposit",
+      "state": "completed"
+    },
+    {
+      "id": 36,
+      "user_id": 4,
+      "amount": 10,
+      "date": "2020-01-17",
+      "type": "refund",
+      "state": "completed"
+    },
+    {
+      "id": 37,
+      "user_id": 4,
+      "amount": 15,
+      "date": "2020-01-28",
+      "type": "deposit",
+      "state": "pending"
+    },
+    {
+      "id": 38,
+      "user_id": 4,
+      "amount": 20,
+      "date": "2020-02-15",
+      "type": "scheduled_withdrawal",
+      "state": "scheduled"
+    },
+    {
+      "id": 39,
+      "user_id": 4,
+      "amount": 20,
+      "date": "2020-03-15",
+      "type": "scheduled_withdrawal",
+      "state": "scheduled"
+    },
+    {
+      "id": 40,
+      "user_id": 4,
+      "amount": 20,
+      "date": "2020-04-15",
+      "type": "scheduled_withdrawal",
+      "state": "scheduled"
+    },
+    {
+      "id": 41,
+      "user_id": 4,
+      "amount": 20,
+      "date": "2020-05-15",
+      "type": "scheduled_withdrawal",
+      "state": "scheduled"
+    },
+    {
+      "id": 42,
+      "user_id": 5,
+      "amount": 40,
+      "date": "2020-01-01",
+      "type": "deposit",
+      "state": "completed"
+    },
+    {
+      "id": 43,
+      "user_id": 5,
+      "amount": 10,
+      "date": "2020-01-15",
+      "type": "refund",
+      "state": "pending"
+    },
+    {
+      "id": 44,
+      "user_id": 5,
+      "amount": 20,
+      "date": "2020-01-15",
       "type": "scheduled_withdrawal",
       "state": "scheduled"
     }
