@@ -1,9 +1,7 @@
 import json
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Type
-
 from pydantic import BaseModel
-
 from backend.models import Row, TransactionRow, UserRow
 from backend.models.interfaces import Database
 
@@ -49,7 +47,8 @@ class InMemoryDB(Database):
     def put(self, table_name: str, item: BaseModel) -> Row:
         """Adds a new item to the table and returns it
 
-        Note: the item's original `id` field is ignored and overwritten with the next available id"""
+        Note: the item's original `id` field is ignored and overwritten with the next available id
+        """
         if table_name not in self._tables:
             raise KeyError(f"Table {table_name} does not exist")
         schema = self._tables[table_name].schema

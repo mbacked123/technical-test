@@ -1,5 +1,4 @@
 from typing import List
-
 from backend.models import (
     Transaction,
     TransactionRow,
@@ -44,3 +43,68 @@ def create_transaction(
         user_id=user_id, **transaction.dict(), state=initial_state
     )
     return db.put("transactions", transaction_row)
+
+
+def compute_balance_payments_for_user(db: Database, user_id: int):
+    """Computes the balance of payments for a user subscription."""
+    transactions = [
+        transaction
+        for transaction in db.scan("transactions")
+        if transaction.user_id == user_id
+    ]
+
+    # Calcul du solde de la cagnotte
+    balance = sum(
+        t.amount
+        for t in transactions
+        if t.type == TransactionType.DEPOSIT and t.state == TransactionState.COMPLETED
+    )
+    balance -= sum(
+        t.amount
+        for t in transactions
+        if t.type == TransactionType.SCHEDULED_WITHDRAWAL
+        and t.state == TransactionState.COMPLETED
+    )
+    balance -= sum(
+        t.amount
+        for t in transactions
+        if t.type == TransactionType.REFUND
+        and t.state in [TransactionState.COMPLETED, TransactionState.PENDING]
+    )
+
+    # Identifier les prélèvements programmés futurs
+    scheduled_withdrawals = [
+        t
+        for t in transactions
+        if t.type == TransactionType.SCHEDULED_WITHDRAWAL
+        and t.state == TransactionState.SCHEDULED
+    ]
+
+    result = []
+    for withdrawal in scheduled_withdrawals:
+        amount = withdrawal.amount
+        if balance >= amount:
+            covered_amount = amount
+            balance -= amount
+            coverage_rate = 100
+        elif balance > 0:
+            covered_amount = balance
+            coverage_rate = round(balance / amount * 100)
+            balance = (
+                0  # Le solde devient 0 car il ne peut plus couvrir de prélèvements
+            )
+
+        else:
+            # Des qu'on finit pour le remboursement d'une echeance pas couvert à 100%
+            covered_amount = 0
+            coverage_rate = 0
+
+        result.append(
+            {
+                "amount": amount,
+                "covered_amount": covered_amount,
+                "coverage_rate": coverage_rate,
+            }
+        )
+
+    return {"scheduled_withdrawals": result, "remaining_balance": balance}
